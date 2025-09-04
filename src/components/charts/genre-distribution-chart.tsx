@@ -68,7 +68,7 @@ export function GenreDistributionChart({
     const topGenres = data.slice(0, maxGenres);
     const otherGenres = data.slice(maxGenres);
     
-    let processedData = topGenres.map((genre, index) => ({
+    const processedData = topGenres.map((genre, index) => ({
       name: genre.genre_name,
       value: genre.count,
       percentage: genre.percentage,
