@@ -18,7 +18,8 @@ import {
   Tooltip, 
   Legend
 } from 'recharts';
-import { PieChart as PieChartIcon, Users } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartPie, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import type { GenreDistribution } from '@/lib/types';
@@ -123,14 +124,14 @@ export function GenreDistributionChart({
       <Card className="cinema-card">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <PieChartIcon className="h-5 w-5 text-primary animate-pulse" />
+            <FontAwesomeIcon icon={faChartPie} className="h-5 w-5 text-primary animate-pulse" />
             <CardTitle className="text-lg font-semibold">Distribución por Género</CardTitle>
             <Badge variant="outline" className="animate-pulse">Cargando...</Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center h-80 bg-muted/20 rounded-lg animate-pulse">
-            <PieChartIcon className="h-12 w-12 text-muted-foreground/50" />
+            <FontAwesomeIcon icon={faChartPie} className="h-12 w-12 text-muted-foreground/50" />
           </div>
         </CardContent>
       </Card>
@@ -142,7 +143,7 @@ export function GenreDistributionChart({
       <Card className="cinema-card">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <PieChartIcon className="h-5 w-5 text-muted-foreground" />
+            <FontAwesomeIcon icon={faChartPie} className="h-5 w-5 text-muted-foreground" />
             <CardTitle className="text-lg font-semibold">Distribución por Género</CardTitle>
             <Badge variant="outline">Sin datos</Badge>
           </div>
@@ -150,7 +151,7 @@ export function GenreDistributionChart({
         <CardContent>
           <div className="flex items-center justify-center h-80 text-muted-foreground">
             <div className="text-center space-y-2">
-              <Users className="h-12 w-12 mx-auto opacity-50" />
+              <FontAwesomeIcon icon={faUsers} className="h-12 w-12 mx-auto opacity-50" />
               <p>No hay distribución de géneros disponible</p>
               <p className="text-sm">Selecciona algunos géneros para ver la distribución</p>
             </div>
@@ -165,7 +166,7 @@ export function GenreDistributionChart({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <PieChartIcon className="h-5 w-5 text-primary" />
+            <FontAwesomeIcon icon={faChartPie} className="h-5 w-5 text-primary" />
             <CardTitle className="text-lg font-semibold">Distribución por Género</CardTitle>
             <Badge variant="secondary" className="text-xs">
               {data.length} géneros

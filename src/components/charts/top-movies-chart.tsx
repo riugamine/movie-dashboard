@@ -20,7 +20,8 @@ import {
   ResponsiveContainer,
   Cell
 } from 'recharts';
-import { Award, Film } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrophy, faFilm } from '@fortawesome/free-solid-svg-icons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import type { TopMovie } from '@/lib/types';
@@ -66,15 +67,15 @@ export function TopMoviesChart({
     return data
       .slice(0, maxMovies)
       .map((movie, index) => ({
-        titulo: movie.title.length > 25 ? movie.title.substring(0, 25) + '...' : movie.title,
+        titulo: movie.title.length > 15 ? movie.title.substring(0, 15) + '...' : movie.title,
         titulo_completo: movie.title,
         popularidad: Math.round(movie.popularity),
         calificacion: movie.vote_average,
         generos: movie.genre_names.join(', '),
         fecha: movie.release_date,
         posicion: index + 1,
-      }))
-      .reverse(); // Invertir para mostrar #1 arriba
+        ranking: `#${index + 1}`,
+      }));
   }, [data, maxMovies]);
 
   // Calcular estadísticas
@@ -97,14 +98,14 @@ export function TopMoviesChart({
       <Card className="cinema-card">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <Award className="h-5 w-5 text-secondary animate-pulse" />
+            <FontAwesomeIcon icon={faTrophy} className="h-5 w-5 text-secondary animate-pulse" />
             <CardTitle className="text-lg font-semibold">Top 10 Películas</CardTitle>
             <Badge variant="outline" className="animate-pulse">Cargando...</Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center h-96 bg-muted/20 rounded-lg animate-pulse">
-            <Award className="h-12 w-12 text-muted-foreground/50" />
+            <FontAwesomeIcon icon={faTrophy} className="h-12 w-12 text-muted-foreground/50" />
           </div>
         </CardContent>
       </Card>
@@ -116,7 +117,7 @@ export function TopMoviesChart({
       <Card className="cinema-card">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <Award className="h-5 w-5 text-muted-foreground" />
+            <FontAwesomeIcon icon={faTrophy} className="h-5 w-5 text-muted-foreground" />
             <CardTitle className="text-lg font-semibold">Top 10 Películas</CardTitle>
             <Badge variant="outline">Sin datos</Badge>
           </div>
@@ -124,7 +125,7 @@ export function TopMoviesChart({
         <CardContent>
           <div className="flex items-center justify-center h-96 text-muted-foreground">
             <div className="text-center space-y-2">
-              <Film className="h-12 w-12 mx-auto opacity-50" />
+              <FontAwesomeIcon icon={faFilm} className="h-12 w-12 mx-auto opacity-50" />
               <p>No hay películas para mostrar</p>
               <p className="text-sm">Ajusta los filtros para ver el ranking</p>
             </div>
@@ -139,7 +140,7 @@ export function TopMoviesChart({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Award className="h-5 w-5 text-secondary" />
+            <FontAwesomeIcon icon={faTrophy} className="h-5 w-5 text-secondary" />
             <CardTitle className="text-lg font-semibold">Top {maxMovies} Películas</CardTitle>
             <Badge variant="secondary" className="text-xs">
               Por popularidad
@@ -168,8 +169,7 @@ export function TopMoviesChart({
           <ResponsiveContainer>
             <BarChart
               data={chartData}
-              layout="horizontal"
-              margin={{ top: 10, right: 30, left: 80, bottom: 5 }}
+              margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
             >
               <CartesianGrid 
                 strokeDasharray="3 3" 
@@ -178,20 +178,24 @@ export function TopMoviesChart({
               />
               
               <XAxis 
-                type="number"
+                dataKey="titulo"
+                axisLine={false}
+                tickLine={false}
+                tick={{ 
+                  fill: 'hsl(var(--muted-foreground))', 
+                  fontSize: 10
+                }}
+                angle={-45}
+                textAnchor="end"
+                height={60}
+                interval={0}
+              />
+              
+              <YAxis 
                 axisLine={false}
                 tickLine={false}
                 tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
                 tickFormatter={(value) => `${value}`}
-              />
-              
-              <YAxis 
-                type="category"
-                dataKey="titulo"
-                axisLine={false}
-                tickLine={false}
-                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
-                width={75}
               />
               
               <Tooltip
@@ -201,18 +205,16 @@ export function TopMoviesChart({
                   borderRadius: '8px',
                   boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                 }}
-                labelStyle={{ color: 'hsl(var(--popover-foreground))', fontWeight: 'bold' }}
                 formatter={(value: any, name: string, props: any) => {
                   const data = props.payload;
                   return [
                     <div key="tooltip" className="space-y-1">
-                      <div className="font-semibold">{data.titulo_completo}</div>
+                      <div className="font-semibold text-accent">{data.ranking} - {data.titulo_completo}</div>
                       <div className="text-sm space-y-0.5">
                         <div>🔥 Popularidad: {value}</div>
                         <div>⭐ Calificación: {data.calificacion}/10</div>
                         <div>🎭 Géneros: {data.generos}</div>
                         <div>📅 Estreno: {new Date(data.fecha).toLocaleDateString('es-ES')}</div>
-                        <div className="font-medium text-accent">#{data.posicion} en ranking</div>
                       </div>
                     </div>,
                     ''
@@ -223,14 +225,14 @@ export function TopMoviesChart({
               
               <Bar 
                 dataKey="popularidad" 
-                radius={[0, 4, 4, 0]}
+                radius={[4, 4, 0, 0]}
                 name="Popularidad"
               >
                 {chartData.map((entry, index) => (
                   <Cell 
                     key={`cell-${index}`} 
                     fill={BAR_COLORS[index % BAR_COLORS.length]}
-                    opacity={0.8}
+                    opacity={0.85}
                   />
                 ))}
               </Bar>

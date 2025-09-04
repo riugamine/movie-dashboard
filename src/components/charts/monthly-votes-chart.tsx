@@ -21,7 +21,8 @@ import {
   Legend,
   ReferenceLine
 } from 'recharts';
-import { Star, TrendingUp } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import type { MonthlyData } from '@/lib/types';
@@ -81,14 +82,14 @@ export function MonthlyVotesChart({
       <Card className="cinema-card">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <Star className="h-5 w-5 text-secondary animate-pulse" />
+            <FontAwesomeIcon icon={faStar} className="h-5 w-5 text-secondary animate-pulse" />
             <CardTitle className="text-lg font-semibold">Calificación Mensual</CardTitle>
             <Badge variant="outline" className="animate-pulse">Cargando...</Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center h-80 bg-muted/20 rounded-lg animate-pulse">
-            <Star className="h-12 w-12 text-muted-foreground/50" />
+            <FontAwesomeIcon icon={faStar} className="h-12 w-12 text-muted-foreground/50" />
           </div>
         </CardContent>
       </Card>
@@ -100,7 +101,7 @@ export function MonthlyVotesChart({
       <Card className="cinema-card">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <Star className="h-5 w-5 text-muted-foreground" />
+            <FontAwesomeIcon icon={faStar} className="h-5 w-5 text-muted-foreground" />
             <CardTitle className="text-lg font-semibold">Calificación Mensual</CardTitle>
             <Badge variant="outline">Sin datos</Badge>
           </div>
@@ -108,7 +109,7 @@ export function MonthlyVotesChart({
         <CardContent>
           <div className="flex items-center justify-center h-80 text-muted-foreground">
             <div className="text-center space-y-2">
-              <Star className="h-12 w-12 mx-auto opacity-50" />
+              <FontAwesomeIcon icon={faStar} className="h-12 w-12 mx-auto opacity-50" />
               <p>No hay datos de calificación disponibles</p>
               <p className="text-sm">Ajusta los filtros para ver la evolución de votaciones</p>
             </div>
@@ -123,7 +124,7 @@ export function MonthlyVotesChart({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Star className="h-5 w-5 text-secondary" />
+            <FontAwesomeIcon icon={faStar} className="h-5 w-5 text-secondary" />
             <CardTitle className="text-lg font-semibold">Calificación Mensual</CardTitle>
             <Badge variant="secondary" className="text-xs">
               {chartData.length} períodos
@@ -218,14 +219,25 @@ export function MonthlyVotesChart({
                 iconType="circle"
               />
               
-              {/* Línea principal de calificación */}
+              {/* Línea principal de calificación - conectada */}
               <Line
                 type="monotone"
                 dataKey="calificacion"
                 stroke="hsl(var(--secondary))"
                 strokeWidth={3}
-                dot={{ fill: 'hsl(var(--secondary))', strokeWidth: 2, r: 4 }}
-                activeDot={{ r: 6, stroke: 'hsl(var(--secondary))', strokeWidth: 2 }}
+                dot={{ 
+                  fill: 'hsl(var(--secondary))', 
+                  strokeWidth: 2, 
+                  r: 5,
+                  stroke: 'hsl(var(--background))'
+                }}
+                activeDot={{ 
+                  r: 8, 
+                  stroke: 'hsl(var(--secondary))', 
+                  strokeWidth: 3,
+                  fill: 'hsl(var(--background))'
+                }}
+                connectNulls={true}
                 name="Calificación"
               />
               
@@ -235,8 +247,14 @@ export function MonthlyVotesChart({
                 dataKey="promedio_movil"
                 stroke="hsl(var(--primary))"
                 strokeWidth={2}
-                strokeDasharray="5 5"
-                dot={false}
+                strokeDasharray="8 4"
+                dot={{ 
+                  fill: 'hsl(var(--primary))', 
+                  strokeWidth: 1, 
+                  r: 3,
+                  stroke: 'hsl(var(--background))'
+                }}
+                connectNulls={true}
                 name="Tendencia"
               />
             </LineChart>

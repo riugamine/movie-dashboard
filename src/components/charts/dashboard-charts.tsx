@@ -9,7 +9,8 @@
 
 'use client';
 
-import { BarChart3, TrendingUp } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartColumn, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import { Badge } from '@/components/ui/badge';
 import { MonthlyPopularityChart } from './monthly-popularity-chart';
 import { MonthlyVotesChart } from './monthly-votes-chart';
@@ -39,7 +40,7 @@ export function DashboardCharts({
       {/* Título de la sección */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <BarChart3 className="h-5 w-5 text-primary" />
+          <FontAwesomeIcon icon={faChartColumn} className="h-5 w-5 text-primary" />
           <h2 className="text-xl font-bold cinema-text-gradient">
             {title}
           </h2>
@@ -91,7 +92,7 @@ export function DashboardCharts({
       {dashboardData && !isLoading && (
         <div className="bg-primary/5 p-4 rounded-lg border border-primary/10">
           <div className="flex items-start gap-3">
-            <TrendingUp className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+            <FontAwesomeIcon icon={faChartLine} className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
             <div className="space-y-2">
               <h3 className="font-medium">Transformaciones Aplicadas</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs text-muted-foreground">

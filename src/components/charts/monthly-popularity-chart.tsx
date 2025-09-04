@@ -20,7 +20,8 @@ import {
   ResponsiveContainer,
   Legend
 } from 'recharts';
-import { TrendingUp, Calendar } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartLine, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import type { MonthlyData } from '@/lib/types';
@@ -79,14 +80,14 @@ export function MonthlyPopularityChart({
       <Card className="cinema-card">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-accent animate-pulse" />
+            <FontAwesomeIcon icon={faChartLine} className="h-5 w-5 text-accent animate-pulse" />
             <CardTitle className="text-lg font-semibold">Popularidad Mensual</CardTitle>
             <Badge variant="outline" className="animate-pulse">Cargando...</Badge>
           </div>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center h-80 bg-muted/20 rounded-lg animate-pulse">
-            <TrendingUp className="h-12 w-12 text-muted-foreground/50" />
+            <FontAwesomeIcon icon={faChartLine} className="h-12 w-12 text-muted-foreground/50" />
           </div>
         </CardContent>
       </Card>
@@ -98,7 +99,7 @@ export function MonthlyPopularityChart({
       <Card className="cinema-card">
         <CardHeader className="pb-3">
           <div className="flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-muted-foreground" />
+            <FontAwesomeIcon icon={faChartLine} className="h-5 w-5 text-muted-foreground" />
             <CardTitle className="text-lg font-semibold">Popularidad Mensual</CardTitle>
             <Badge variant="outline">Sin datos</Badge>
           </div>
@@ -106,7 +107,7 @@ export function MonthlyPopularityChart({
         <CardContent>
           <div className="flex items-center justify-center h-80 text-muted-foreground">
             <div className="text-center space-y-2">
-              <Calendar className="h-12 w-12 mx-auto opacity-50" />
+              <FontAwesomeIcon icon={faCalendarDays} className="h-12 w-12 mx-auto opacity-50" />
               <p>No hay datos mensuales disponibles</p>
               <p className="text-sm">Ajusta los filtros para ver la evolución temporal</p>
             </div>
@@ -121,7 +122,7 @@ export function MonthlyPopularityChart({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-accent" />
+            <FontAwesomeIcon icon={faChartLine} className="h-5 w-5 text-accent" />
             <CardTitle className="text-lg font-semibold">Popularidad Mensual</CardTitle>
             <Badge variant="secondary" className="text-xs">
               {chartData.length} períodos
