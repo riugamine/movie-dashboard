@@ -166,6 +166,25 @@
 
 /* 🎬 CINEMA UTILITIES - Clases utilitarias para la marca cinematográfica */
 @layer utilities {
+  /* Animaciones de loading */
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 5px hsl(var(--primary) / 0.3); }
+    50% { box-shadow: 0 0 20px hsl(var(--primary) / 0.6), 0 0 30px hsl(var(--primary) / 0.4); }
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
   .cinema-gradient {
     @apply bg-gradient-to-br from-primary via-accent to-secondary;
   }

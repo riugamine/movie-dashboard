@@ -1,6 +1,7 @@
 'use client';
 
-import { Film, Sparkles, AlertCircle, RefreshCw } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilm, faStar, faExclamationTriangle, faRefresh } from '@fortawesome/free-solid-svg-icons';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -8,6 +9,9 @@ import { MovieFilters } from '@/components/filters';
 import { StatsOverview } from '@/components/dashboard/stats-overview';
 import { DashboardCharts } from '@/components/charts';
 import { useDashboardData } from '@/lib/hooks/use-dashboard-data';
+import { ErrorState } from '@/components/ui/error-state';
+import { EmptyState } from '@/components/ui/empty-state';
+import { ResponsiveContainer, ResponsiveStack } from '@/components/layout/responsive-grid';
 
 /**
  * Página principal del dashboard de películas
@@ -44,7 +48,7 @@ export default function DashboardPage() {
             {/* Logo y título */}
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg cinema-gradient">
-                <Film className="h-6 w-6 text-primary-foreground" />
+                <FontAwesomeIcon icon={faFilm} className="h-6 w-6 text-primary-foreground" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold cinema-text-gradient">
@@ -61,17 +65,17 @@ export default function DashboardPage() {
               {/* Indicador de estado */}
               {isLoading ? (
                 <Badge variant="outline" className="animate-pulse">
-                  <RefreshCw className="h-3 w-3 mr-1 animate-spin" />
+                  <FontAwesomeIcon icon={faRefresh} className="h-3 w-3 mr-1 animate-spin" />
                   Cargando...
                 </Badge>
               ) : hasError ? (
                 <Badge variant="destructive">
-                  <AlertCircle className="h-3 w-3 mr-1" />
+                  <FontAwesomeIcon icon={faExclamationTriangle} className="h-3 w-3 mr-1" />
                   Error
                 </Badge>
               ) : (
                 <Badge variant="default" className="cinema-glow">
-                  <Sparkles className="h-3 w-3 mr-1" />
+                  <FontAwesomeIcon icon={faStar} className="h-3 w-3 mr-1" />
                   Activo
                 </Badge>
               )}
@@ -83,7 +87,7 @@ export default function DashboardPage() {
                 onClick={applyPopularFilters}
                 disabled={isLoading}
               >
-                <Sparkles className="h-4 w-4 mr-1" />
+                <FontAwesomeIcon icon={faStar} className="h-4 w-4 mr-1" />
                 Filtros Populares
               </Button>
 
@@ -93,7 +97,7 @@ export default function DashboardPage() {
                 onClick={resetFilters}
                 disabled={isLoading}
               >
-                <RefreshCw className="h-4 w-4 mr-1" />
+                <FontAwesomeIcon icon={faRefresh} className="h-4 w-4 mr-1" />
                 Reset
               </Button>
             </div>
@@ -105,27 +109,23 @@ export default function DashboardPage() {
       <main className="container mx-auto px-4 py-8 space-y-8">
         {/* Mensaje de error */}
         {hasError && (
-          <Alert variant="destructive">
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription className="flex items-center justify-between">
-              <span>Error al cargar datos: {errorMessage}</span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => refetchMovies()}
-                className="ml-2"
-              >
-                <RefreshCw className="h-3 w-3 mr-1" />
-                Reintentar
-              </Button>
-            </AlertDescription>
-          </Alert>
+          <div className="mb-6">
+            <ErrorState
+              error={errorMessage}
+              title="Error en el Dashboard"
+              description="No se pudieron cargar los datos del dashboard. Por favor, intenta nuevamente."
+              onRetry={refetchMovies}
+              onReset={resetFilters}
+              showDetails={process.env.NODE_ENV === 'development'}
+              size="md"
+            />
+          </div>
         )}
 
         {/* Mensaje de bienvenida para primeros usuarios */}
         {!isLoading && !hasError && movies.length === 0 && (
           <Alert>
-            <Film className="h-4 w-4" />
+            <FontAwesomeIcon icon={faFilm} className="h-4 w-4" />
             <AlertDescription>
               <div className="space-y-2">
                 <p className="font-medium">¡Bienvenido a CineDash! 🎬</p>
@@ -139,7 +139,7 @@ export default function DashboardPage() {
                   onClick={applyPopularFilters}
                   className="mt-2"
                 >
-                  <Sparkles className="h-3 w-3 mr-1" />
+                  <FontAwesomeIcon icon={faStar} className="h-3 w-3 mr-1" />
                   Comenzar con Filtros Populares
                 </Button>
               </div>
@@ -198,7 +198,7 @@ export default function DashboardPage() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
-              <Film className="h-4 w-4" />
+              <FontAwesomeIcon icon={faFilm} className="h-4 w-4" />
               <span>CineDash - Powered by TMDB API</span>
             </div>
             <div className="flex items-center gap-4">

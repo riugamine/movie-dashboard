@@ -5,14 +5,17 @@
  * - Muestra estadísticas de manera visual y atractiva
  * - Cards con iconos y colores cinematográficos
  * - Animaciones suaves y responsive
+ * - Estados de loading y error mejorados
  */
 
 'use client';
 
-import { Film, TrendingUp, Star, Calendar, Users, Award } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilm, faChartLine, faStar, faCalendarDays, faUsers, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Skeleton } from '@/components/ui/skeleton';
+import { StatCardSkeleton } from '@/components/ui/skeleton';
+import { StatsGrid } from '@/components/layout/responsive-grid';
 
 interface StatsOverviewProps {
   /** Estadísticas calculadas */
@@ -28,6 +31,8 @@ interface StatsOverviewProps {
   isLoading?: boolean;
   /** Título de la sección */
   title?: string;
+  /** Si mostrar animaciones */
+  animated?: boolean;
 }
 
 /**
@@ -37,169 +42,190 @@ const METRICS_CONFIG = [
   {
     key: 'totalMovies',
     label: 'Películas Analizadas',
-    icon: Film,
+    icon: faFilm,
     color: 'text-primary',
     bgColor: 'bg-primary/10',
+    glowColor: 'shadow-primary/20',
     format: (value: number) => value.toLocaleString(),
+    description: 'Total de películas procesadas'
   },
   {
     key: 'averagePopularity',
     label: 'Popularidad Promedio',
-    icon: TrendingUp,
+    icon: faChartLine,
     color: 'text-accent',
     bgColor: 'bg-accent/10',
+    glowColor: 'shadow-accent/20',
     format: (value: number) => Math.round(value).toLocaleString(),
+    description: 'Índice promedio de popularidad'
   },
   {
     key: 'averageRating',
     label: 'Calificación Promedio',
-    icon: Star,
+    icon: faStar,
     color: 'text-secondary',
     bgColor: 'bg-secondary/10',
+    glowColor: 'shadow-secondary/20',
     format: (value: number) => `${value.toFixed(1)}/10`,
+    description: 'Calificación promedio de usuarios'
   },
   {
     key: 'monthsAnalyzed',
     label: 'Períodos Mensuales',
-    icon: Calendar,
+    icon: faCalendarDays,
     color: 'text-primary',
     bgColor: 'bg-primary/10',
+    glowColor: 'shadow-primary/20',
     format: (value: number) => `${value} meses`,
+    description: 'Períodos temporales analizados'
   },
   {
     key: 'genresFound',
     label: 'Géneros Encontrados',
-    icon: Users,
+    icon: faUsers,
     color: 'text-accent',
     bgColor: 'bg-accent/10',
+    glowColor: 'shadow-accent/20',
     format: (value: number) => `${value} géneros`,
+    description: 'Variedad de géneros disponibles'
   },
   {
     key: 'topMoviesCount',
     label: 'Top Películas',
-    icon: Award,
+    icon: faTrophy,
     color: 'text-secondary',
     bgColor: 'bg-secondary/10',
+    glowColor: 'shadow-secondary/20',
     format: (value: number) => `Top ${value}`,
+    description: 'Películas destacadas mostradas'
   },
 ] as const;
 
 /**
- * Componente de skeleton para estado de carga
+ * Componente individual de métrica
  */
-function StatsSkeleton() {
+function StatCard({ 
+  metric, 
+  value, 
+  animated = true 
+}: { 
+  metric: typeof METRICS_CONFIG[number];
+  value: number;
+  animated?: boolean;
+}) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-      {Array.from({ length: 6 }).map((_, index) => (
-        <Card key={index} className="cinema-card">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <Skeleton className="h-10 w-10 rounded-lg" />
-              <div className="space-y-2 flex-1">
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-6 w-16" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
+    <Card className={`cinema-card hover:shadow-lg ${metric.glowColor} transition-all duration-300 group ${animated ? 'hover:scale-105' : ''}`}>
+      <CardContent className="p-4 sm:p-6">
+        <div className="flex items-center justify-between mb-3">
+          <div className={`p-2 rounded-lg ${metric.bgColor} group-hover:scale-110 transition-transform duration-300`}>
+            <FontAwesomeIcon 
+              icon={metric.icon} 
+              className={`h-4 w-4 sm:h-5 sm:w-5 ${metric.color}`} 
+            />
+          </div>
+          <Badge 
+            variant="outline" 
+            className="text-xs opacity-70 group-hover:opacity-100 transition-opacity"
+          >
+            Actualizado
+          </Badge>
+        </div>
+        
+        <div className="space-y-1">
+          <div className={`text-2xl sm:text-3xl font-bold ${metric.color} group-hover:cinema-text-gradient transition-all duration-300`}>
+            {metric.format(value)}
+          </div>
+          <div className="text-sm font-medium text-foreground">
+            {metric.label}
+          </div>
+          <div className="text-xs text-muted-foreground">
+            {metric.description}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
 /**
- * Componente principal de estadísticas
+ * Componente principal de resumen de estadísticas
  */
 export function StatsOverview({ 
   stats, 
   isLoading = false, 
-  title = 'Resumen del Dashboard' 
+  title = "Resumen del Dashboard",
+  animated = true
 }: StatsOverviewProps) {
   if (isLoading) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center gap-2">
-          <TrendingUp className="h-5 w-5 text-primary" />
-          <h2 className="text-xl font-bold cinema-text-gradient">{title}</h2>
-          <Badge variant="outline" className="animate-pulse">Cargando...</Badge>
+          <div className="h-6 w-6 bg-primary/20 rounded-full animate-pulse" />
+          <div className="h-6 w-48 bg-primary/10 rounded animate-pulse" />
         </div>
-        <StatsSkeleton />
+        <StatsGrid>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <StatCardSkeleton key={index} />
+          ))}
+        </StatsGrid>
       </div>
     );
   }
 
   if (!stats) {
     return (
-      <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <TrendingUp className="h-5 w-5 text-muted-foreground" />
-          <h2 className="text-xl font-bold text-muted-foreground">{title}</h2>
-          <Badge variant="outline">Sin datos</Badge>
-        </div>
-        <div className="text-center py-8 text-muted-foreground">
-          <Film className="h-12 w-12 mx-auto mb-2 opacity-50" />
-          <p>No hay estadísticas disponibles</p>
-          <p className="text-sm">Selecciona algunos filtros para comenzar</p>
+      <div className="space-y-4 sm:space-y-6">
+        <h2 className="text-xl sm:text-2xl font-bold cinema-text-gradient">
+          {title}
+        </h2>
+        <div className="text-center py-8 sm:py-12">
+          <div className="p-4 rounded-full bg-muted/20 w-16 h-16 mx-auto mb-4 animate-pulse">
+            <FontAwesomeIcon icon={faChartLine} className="h-8 w-8 text-muted-foreground/50" />
+          </div>
+          <p className="text-muted-foreground">
+            No hay estadísticas disponibles
+          </p>
+          <p className="text-sm text-muted-foreground mt-1">
+            Los datos se cargarán cuando estén disponibles
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-4">
-      {/* Título de la sección */}
-      <div className="flex items-center gap-2">
-        <TrendingUp className="h-5 w-5 text-primary" />
-        <h2 className="text-xl font-bold cinema-text-gradient">{title}</h2>
-        <Badge variant="default" className="cinema-glow">
-          Actualizado
-        </Badge>
+    <div className="space-y-4 sm:space-y-6">
+      {/* Header con título y badge de estado */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h2 className="text-xl sm:text-2xl font-bold cinema-text-gradient">
+          {title}
+        </h2>
+        <div className="flex items-center gap-2 text-sm">
+          <div className="h-2 w-2 bg-green-500 rounded-full animate-pulse" />
+          <span className="text-muted-foreground">Datos en tiempo real</span>
+        </div>
       </div>
 
-      {/* Grid de métricas */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      {/* Grid de estadísticas */}
+      <StatsGrid>
         {METRICS_CONFIG.map((metric) => {
-          const IconComponent = metric.icon;
           const value = stats[metric.key as keyof typeof stats] as number;
-          
           return (
-            <Card 
-              key={metric.key} 
-              className="cinema-card hover:cinema-glow transition-all duration-300 cursor-pointer group"
-            >
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  {/* Icono con fondo */}
-                  <div className={`p-2 rounded-lg ${metric.bgColor} group-hover:scale-110 transition-transform`}>
-                    <IconComponent className={`h-6 w-6 ${metric.color}`} />
-                  </div>
-                  
-                  {/* Datos */}
-                  <div className="space-y-1 flex-1 min-w-0">
-                    <p className="text-xs text-muted-foreground font-medium truncate">
-                      {metric.label}
-                    </p>
-                    <p className={`text-lg font-bold ${metric.color} group-hover:scale-105 transition-transform origin-left`}>
-                      {metric.format(value)}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <StatCard
+              key={metric.key}
+              metric={metric}
+              value={value}
+              animated={animated}
+            />
           );
         })}
-      </div>
+      </StatsGrid>
 
       {/* Información adicional */}
-      <div className="bg-primary/5 p-4 rounded-lg border border-primary/10">
-        <div className="flex items-center gap-2 mb-2">
-          <Award className="h-4 w-4 text-primary" />
-          <span className="text-sm font-medium">Análisis Completado</span>
-        </div>
-        <p className="text-xs text-muted-foreground">
-          Dashboard actualizado con {stats.totalMovies.toLocaleString()} películas analizadas 
-          a través de {stats.monthsAnalyzed} períodos mensuales, 
-          cubriendo {stats.genresFound} géneros diferentes.
+      <div className="text-center text-xs text-muted-foreground pt-4 border-t border-border/50">
+        <p>
+          Estadísticas generadas a partir de {stats.totalMovies.toLocaleString()} películas • 
+          Actualización automática cada 5 minutos
         </p>
       </div>
     </div>
