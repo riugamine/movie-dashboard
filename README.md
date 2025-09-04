@@ -312,9 +312,6 @@ El sistema de logging está configurado en `src/lib/utils/logger.ts`:
 - Mantén **componentes pequeños** y enfocados
 - Usa **naming conventions** descriptivas
 
-## 📄 Licencia
-
-Este proyecto está bajo la licencia MIT. Ver [LICENSE](LICENSE) para más detalles.
 
 ## 🙏 Reconocimientos
 
@@ -324,13 +321,6 @@ Este proyecto está bajo la licencia MIT. Ver [LICENSE](LICENSE) para más detal
 - **[Next.js](https://nextjs.org/)** - Framework React de producción
 - **[Vercel](https://vercel.com/)** - Plataforma de deployment
 
-## 📞 Soporte
-
-¿Tienes preguntas o problemas? 
-
-- 🐛 **Issues**: [GitHub Issues](https://github.com/tu-usuario/movie-dashboard/issues)
-- 💬 **Discusiones**: [GitHub Discussions](https://github.com/tu-usuario/movie-dashboard/discussions)
-- 📧 **Email**: tu-email@ejemplo.com
 
 ---
 
