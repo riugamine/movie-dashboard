@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { MovieFilters } from '@/components/filters';
 import { StatsOverview } from '@/components/dashboard/stats-overview';
-import { ChartsPlaceholder } from '@/components/charts/charts-placeholder';
+import { DashboardCharts } from '@/components/charts';
 import { useDashboardData } from '@/lib/hooks/use-dashboard-data';
 
 /**
@@ -163,10 +163,11 @@ export default function DashboardPage() {
           title="Resumen del Dashboard"
         />
 
-        {/* Visualizaciones (placeholders por ahora) */}
-        <ChartsPlaceholder
+        {/* Visualizaciones interactivas */}
+        <DashboardCharts
           dashboardData={dashboardData}
           isLoading={isLoading}
+          title="Análisis Visual de Datos"
         />
 
         {/* Debug info (solo en desarrollo) */}

@@ -86,7 +86,16 @@ class Logger {
   private async sendWebhook(trace: HttpTrace): Promise<void> {
     const webhookUrl = process.env.WEBHOOK_URL;
     
-    if (!webhookUrl) {
+    // Skip si no hay webhook configurado o es el placeholder
+    if (!webhookUrl || webhookUrl === 'your_webhook_url_here') {
+      return;
+    }
+
+    // Validar que sea una URL válida
+    try {
+      new URL(webhookUrl);
+    } catch {
+      console.warn('Invalid webhook URL configured, skipping webhook');
       return;
     }
 
