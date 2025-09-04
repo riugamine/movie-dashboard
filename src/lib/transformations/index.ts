@@ -36,17 +36,31 @@ export function transformDashboardData(
   filters: DashboardFilters
 ): DashboardData {
   console.log('🔄 Iniciando transformaciones de datos...');
+  console.log(`📅 Filtros aplicados:`, filters);
+  console.log(`🎬 Total películas recibidas: ${movies.length}`);
+  
+  // Debug: Verificar rango de fechas de las películas
+  if (movies.length > 0) {
+    const dates = movies
+      .filter(m => m.release_date)
+      .map(m => m.release_date)
+      .sort();
+    console.log(`📅 Rango de fechas en películas: ${dates[0]} - ${dates[dates.length - 1]}`);
+  }
+  
   const startTime = performance.now();
 
   try {
     // TRANSFORMACIÓN 1: Agregación Temporal (Mensual)
     console.log('📊 Ejecutando agregación temporal...');
     let monthlyData = aggregateByMonth(movies, genres);
+    console.log(`📊 Datos mensuales agregados: ${monthlyData.length} períodos`);
     
-    // Filtrar por rango de fechas si se especifica
-    if (filters.startDate && filters.endDate) {
-      monthlyData = filterByDateRange(monthlyData, filters.startDate, filters.endDate);
-    }
+    // NO aplicar filtro de fechas aquí ya que la API ya lo hizo
+    // Las películas que llegan ya están filtradas por fecha
+    // if (filters.startDate && filters.endDate) {
+    //   monthlyData = filterByDateRange(monthlyData, filters.startDate, filters.endDate);
+    // }
 
     // TRANSFORMACIÓN 2: Cálculo de Cambio Porcentual
     console.log('📈 Calculando cambios porcentuales...');

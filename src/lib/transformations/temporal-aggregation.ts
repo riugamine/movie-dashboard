@@ -22,12 +22,16 @@ import type { Movie, Genre, MonthlyData } from '../types';
  * ```
  */
 export function aggregateByMonth(movies: Movie[], genres: Genre[]): MonthlyData[] {
+  console.log(`🎬 Procesando ${movies.length} películas para agregación mensual`);
+  
   // Paso 1: Filtrar películas con fecha válida
   const validMovies = movies.filter(movie => {
     return movie.release_date && 
            movie.release_date.length >= 10 && 
            !isNaN(Date.parse(movie.release_date));
   });
+  
+  console.log(`✅ ${validMovies.length} películas con fechas válidas de ${movies.length} total`);
 
   // Paso 2: Agrupar películas por mes (formato YYYY-MM)
   const moviesByMonth = new Map<string, Movie[]>();
@@ -74,7 +78,14 @@ export function aggregateByMonth(movies: Movie[], genres: Genre[]): MonthlyData[
   });
 
   // Paso 4: Ordenar por fecha (más antiguos primero)
-  return monthlyData.sort((a, b) => a.month.localeCompare(b.month));
+  const sortedData = monthlyData.sort((a, b) => a.month.localeCompare(b.month));
+  
+  console.log(`📊 Agregación completada: ${sortedData.length} períodos mensuales`);
+  if (sortedData.length > 0) {
+    console.log(`📅 Rango de períodos: ${sortedData[0].month} - ${sortedData[sortedData.length - 1].month}`);
+  }
+  
+  return sortedData;
 }
 
 /**
