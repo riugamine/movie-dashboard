@@ -192,12 +192,17 @@ export function MonthlyPopularityChart({
               
               <Tooltip
                 contentStyle={{
-                  backgroundColor: 'hsl(var(--popover))',
-                  border: '1px solid hsl(var(--border))',
-                  borderRadius: '8px',
-                  boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                  backgroundColor: 'white',
+                  border: '2px solid hsl(var(--primary))',
+                  borderRadius: '12px',
+                  boxShadow: '0 8px 25px -5px rgb(0 0 0 / 0.3)',
+                  padding: '12px',
                 }}
-                labelStyle={{ color: 'hsl(var(--popover-foreground))' }}
+                labelStyle={{ 
+                  color: 'hsl(var(--primary))', 
+                  fontWeight: 'bold',
+                  fontSize: '14px'
+                }}
                 formatter={(value: any, name: string) => {
                   if (name === 'popularidad') return [`${value}`, 'Popularidad'];
                   if (name === 'promedio_movil') return [`${value}`, 'Promedio Móvil'];

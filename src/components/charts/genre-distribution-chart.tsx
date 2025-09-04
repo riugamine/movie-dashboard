@@ -216,21 +216,36 @@ export function GenreDistributionChart({
                 
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: 'hsl(var(--popover))',
-                    border: '1px solid hsl(var(--border))',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                    backgroundColor: 'white',
+                    border: '2px solid hsl(var(--primary))',
+                    borderRadius: '12px',
+                    boxShadow: '0 8px 25px -5px rgb(0 0 0 / 0.3)',
+                    padding: '16px',
                   }}
                   formatter={(value: any, name: string, props: any) => {
                     const data = props.payload;
                     return [
-                      <div key="tooltip" className="space-y-1">
-                        <div className="font-semibold">{data.name}</div>
-                        <div className="text-sm space-y-0.5">
-                          <div>🎬 Películas: {value}</div>
-                          <div>📊 Porcentaje: {data.percentage}%</div>
-                          <div>🔥 Popularidad: {data.popularidad}</div>
-                          <div>⭐ Calificación: {data.calificacion}/10</div>
+                      <div key="tooltip" className="space-y-2" style={{ color: '#1f2937' }}>
+                        <div className="font-bold text-lg" style={{ color: 'hsl(var(--primary))' }}>
+                          {data.name}
+                        </div>
+                        <div className="text-sm space-y-1" style={{ color: '#374151' }}>
+                          <div className="flex items-center gap-2">
+                            <span>🎬</span>
+                            <span className="font-medium">Películas: {value}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span>📊</span>
+                            <span className="font-medium">Porcentaje: {data.percentage}%</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span>🔥</span>
+                            <span className="font-medium">Popularidad: {data.popularidad}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span>⭐</span>
+                            <span className="font-medium">Calificación: {data.calificacion}/10</span>
+                          </div>
                         </div>
                       </div>,
                       ''
