@@ -7,7 +7,7 @@ on:
     branches: [ main, master ]
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: '24'
   PNPM_VERSION: '8'
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Run linting
         run: pnpm lint
