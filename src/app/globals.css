@@ -44,72 +44,115 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --radius: 0.75rem;
+  
+  /* 🎬 CINEMA PREMIUM THEME - Colores extravagantes para marca de películas */
+  --background: oklch(0.98 0.01 280); /* Blanco ligeramente violáceo */
+  --foreground: oklch(0.15 0.02 260); /* Negro azulado profundo */
+  
+  /* Tarjetas con gradiente sutil */
+  --card: oklch(0.99 0.005 280);
+  --card-foreground: oklch(0.15 0.02 260);
+  
+  /* Popovers elegantes */
+  --popover: oklch(0.98 0.01 280);
+  --popover-foreground: oklch(0.15 0.02 260);
+  
+  /* 🟣 PRIMARIO: Púrpura cinematográfico (como el terciopelo de los cines) */
+  --primary: oklch(0.45 0.25 290); /* Púrpura rico y profundo */
+  --primary-foreground: oklch(0.98 0.01 280);
+  
+  /* 🟡 SECUNDARIO: Dorado de alfombra roja */
+  --secondary: oklch(0.88 0.12 85); /* Dorado suave */
+  --secondary-foreground: oklch(0.25 0.05 260);
+  
+  /* Elementos apagados con toque dorado */
+  --muted: oklch(0.94 0.02 85);
+  --muted-foreground: oklch(0.45 0.05 260);
+  
+  /* 🔥 ACENTO: Rojo carmesí de cortinas de teatro */
+  --accent: oklch(0.65 0.22 15); /* Rojo elegante */
+  --accent-foreground: oklch(0.98 0.01 280);
+  
+  /* Destructivo más cinematográfico */
+  --destructive: oklch(0.55 0.25 25); /* Rojo dramático */
+  
+  /* Bordes sutiles con toque púrpura */
+  --border: oklch(0.90 0.02 280);
+  --input: oklch(0.95 0.01 280);
+  --ring: oklch(0.45 0.25 290); /* Ring igual al primario */
+  
+  /* 📊 GRÁFICOS: Paleta cinematográfica extravagante */
+  --chart-1: oklch(0.65 0.22 15);   /* Rojo carmesí */
+  --chart-2: oklch(0.45 0.25 290);  /* Púrpura real */
+  --chart-3: oklch(0.70 0.15 85);   /* Dorado brillante */
+  --chart-4: oklch(0.55 0.20 200);  /* Azul océano */
+  --chart-5: oklch(0.60 0.18 320);  /* Magenta vibrante */
+  
+  /* Sidebar con tema premium */
+  --sidebar: oklch(0.96 0.01 280);
+  --sidebar-foreground: oklch(0.15 0.02 260);
+  --sidebar-primary: oklch(0.45 0.25 290);
+  --sidebar-primary-foreground: oklch(0.98 0.01 280);
+  --sidebar-accent: oklch(0.88 0.12 85);
+  --sidebar-accent-foreground: oklch(0.25 0.05 260);
+  --sidebar-border: oklch(0.90 0.02 280);
+  --sidebar-ring: oklch(0.45 0.25 290);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* 🎬 CINEMA PREMIUM DARK THEME - Elegancia nocturna de los cines */
+  --background: oklch(0.08 0.02 260); /* Negro profundo con toque azul */
+  --foreground: oklch(0.92 0.01 280); /* Blanco cálido */
+  
+  /* Tarjetas con profundidad cinematográfica */
+  --card: oklch(0.12 0.03 270);
+  --card-foreground: oklch(0.92 0.01 280);
+  
+  /* Popovers elegantes oscuros */
+  --popover: oklch(0.10 0.02 260);
+  --popover-foreground: oklch(0.92 0.01 280);
+  
+  /* 🟣 PRIMARIO: Púrpura brillante para contraste */
+  --primary: oklch(0.70 0.25 290); /* Púrpura más claro en dark */
+  --primary-foreground: oklch(0.08 0.02 260);
+  
+  /* 🟡 SECUNDARIO: Dorado más vibrante */
+  --secondary: oklch(0.75 0.15 85); /* Dorado brillante */
+  --secondary-foreground: oklch(0.15 0.02 260);
+  
+  /* Elementos apagados con elegancia */
+  --muted: oklch(0.18 0.03 270);
+  --muted-foreground: oklch(0.65 0.02 280);
+  
+  /* 🔥 ACENTO: Rojo vibrante de neón */
+  --accent: oklch(0.75 0.25 15); /* Rojo más brillante */
+  --accent-foreground: oklch(0.08 0.02 260);
+  
+  /* Destructivo dramático */
+  --destructive: oklch(0.70 0.28 25);
+  
+  /* Bordes sutiles pero visibles */
+  --border: oklch(0.25 0.03 270);
+  --input: oklch(0.15 0.03 270);
+  --ring: oklch(0.70 0.25 290);
+  
+  /* 📊 GRÁFICOS: Colores vibrantes para dark mode */
+  --chart-1: oklch(0.75 0.25 15);   /* Rojo neón */
+  --chart-2: oklch(0.70 0.25 290);  /* Púrpura brillante */
+  --chart-3: oklch(0.80 0.18 85);   /* Dorado luminoso */
+  --chart-4: oklch(0.70 0.22 200);  /* Azul cian */
+  --chart-5: oklch(0.75 0.20 320);  /* Magenta eléctrico */
+  
+  /* Sidebar oscura premium */
+  --sidebar: oklch(0.10 0.02 260);
+  --sidebar-foreground: oklch(0.92 0.01 280);
+  --sidebar-primary: oklch(0.70 0.25 290);
+  --sidebar-primary-foreground: oklch(0.08 0.02 260);
+  --sidebar-accent: oklch(0.75 0.15 85);
+  --sidebar-accent-foreground: oklch(0.15 0.02 260);
+  --sidebar-border: oklch(0.25 0.03 270);
+  --sidebar-ring: oklch(0.70 0.25 290);
 }
 
 @layer base {
@@ -118,5 +161,37 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* 🎬 CINEMA UTILITIES - Clases utilitarias para la marca cinematográfica */
+@layer utilities {
+  .cinema-gradient {
+    @apply bg-gradient-to-br from-primary via-accent to-secondary;
+  }
+  
+  .cinema-text-gradient {
+    @apply bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent;
+  }
+  
+  .cinema-glow {
+    @apply shadow-lg shadow-primary/25;
+  }
+  
+  .cinema-glow-accent {
+    @apply shadow-lg shadow-accent/25;
+  }
+  
+  .cinema-border {
+    @apply border border-primary/20 bg-gradient-to-br from-primary/5 to-accent/5;
+  }
+  
+  .cinema-card {
+    @apply bg-card/80 backdrop-blur-sm border border-primary/10 shadow-lg shadow-primary/5;
+  }
+  
+  .cinema-button {
+    @apply bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 
+           transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-accent/25;
   }
 }
