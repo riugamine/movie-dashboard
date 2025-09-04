@@ -4,7 +4,6 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.0-38bdf8?logo=tailwind-css)](https://tailwindcss.com/)
 [![Recharts](https://img.shields.io/badge/Recharts-2.12-8884d8?logo=react)](https://recharts.org/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 > **Dashboard premium de análisis cinematográfico** construido con Next.js, TypeScript y la API de TMDB. Explora tendencias de películas, visualiza datos con gráficos interactivos y descubre insights del mundo del cine.
 
